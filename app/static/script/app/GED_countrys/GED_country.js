@@ -91,7 +91,7 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
               }, {
                 xtype: "textfield",
                 ref: "dateContains",
-                fieldLabel: "filter by date",
+                fieldLabel: "Filter by date",
                 validationDelay: 500,
                 listeners: {
                     "valid": this.updateFilter,
