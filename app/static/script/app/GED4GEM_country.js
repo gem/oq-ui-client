@@ -63,7 +63,8 @@ GED_country = Ext.extend(gxp.Viewer, {
                     height: 200,
                     split: true,
                     collapseMode: "mini",
-                }]
+                }],
+                bbar: {id: "mybbar"},
             }],
             
             tools: [{
@@ -93,7 +94,7 @@ GED_country = Ext.extend(gxp.Viewer, {
                 autoLoadFeatures: true,
                 autoSetLayer: false,
                 paging: false,
-                maxFeatures: 100
+                maxFeatures: 2000
             }, {
                 ptype: "gxp_featuregrid",
                 alwaysDisplayOnMap: true,
@@ -141,12 +142,6 @@ GED_country = Ext.extend(gxp.Viewer, {
                     emptyText: "Search for a location ..."
                 }
             }, {
-		         ptype: "gxp_wmsgetfeatureinfo",
-		         actionTarget: "paneltbar",
-	             outputConfig: {
-	                 width: 400
-	                 }
-	         }, {
             	ptype: "gxp_measure",
             	actionTarget: {target: "paneltbar", index: 6},
             	toggleGroup: "main"
