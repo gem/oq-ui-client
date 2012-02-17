@@ -44,7 +44,7 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
                 if (!e.feature.fid) {
                     return;
                 }
-                if (featureManager.layerRecord.get("name") == "ged:country_facts3") {
+                if (featureManager.layerRecord.get("name") == "ged:country_facts_orig") {
                     this.target.traceId = e.feature.fid;
 
                     this.current_trace_url = "/observations/traces/join";
@@ -56,7 +56,7 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
                 }
             },
             "featureunselected": function(e) {
-                if (this.active && featureManager.layerRecord.get("name") == "ged:country_facts3") {
+                if (this.active && featureManager.layerRecord.get("name") == "ged:country_facts_orig") {
                     this.sessionTids = [];
                     this.target.traceId = null;
                 }
@@ -135,7 +135,7 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
             featureManager.setLayer();
             if (!this.layerRecord) {
                 this.target.createLayerRecord({
-                    name: "ged:country_facts3",
+                    name: "ged:country_facts_orig",
                     source: "local"
                 }, function(record) {
                     this.layerRecord = record;
