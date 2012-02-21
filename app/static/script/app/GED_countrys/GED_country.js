@@ -18,13 +18,13 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
      *  ``String`` temporary GeoServer workspace for shapefile uploads.
      *  Default is "temp".
      */
-    temporaryWorkspace: "temp",
+    
 
     /** api: config[temporaryWorkspaceNamespaceUri]
      *  ``String`` namespace uri of the temporary GeoServer workspace for
      *  shapefile uploads. Default is "http://geonode.org/temporary".
      */
-    temporaryWorkspaceNamespaceUri: "http://geonode.org/temporary",
+
     
     /** private: property[sessionTids]
      *  ``Array`` fids of features added/modified in this session
@@ -44,7 +44,7 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
                 if (!e.feature.fid) {
                     return;
                 }
-                if (featureManager.layerRecord.get("name") == "ged:country_facts_orig") {
+                if (featureManager.layerRecord.get("name") == "ged:test_simple_geom") {
                     this.target.traceId = e.feature.fid;
 
                     this.current_trace_url = "/observations/traces/join";
@@ -56,7 +56,7 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
                 }
             },
             "featureunselected": function(e) {
-                if (this.active && featureManager.layerRecord.get("name") == "ged:country_facts_orig") {
+                if (this.active && featureManager.layerRecord.get("name") == "ged:test_simple_geom") {
                     this.sessionTids = [];
                     this.target.traceId = null;
                 }
@@ -122,12 +122,7 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
         });
     },
 
-    updateFaultSectionName: function() {
-        var form = this.output[0]
-        if (form.faultSectionName.getValue()) {
-                this.faultSection['name'] = form.faultSectionName.getValue()
-        }
-    },
+
 
     activate: function() {
         if (FaultedEarth.CountryInfo.superclass.activate.apply(this, arguments)) {
@@ -135,7 +130,7 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
             featureManager.setLayer();
             if (!this.layerRecord) {
                 this.target.createLayerRecord({
-                    name: "ged:country_facts_orig",
+                    name: "ged:test_simple_geom",
                     source: "local"
                 }, function(record) {
                     this.layerRecord = record;
