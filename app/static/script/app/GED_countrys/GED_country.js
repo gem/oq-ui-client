@@ -84,6 +84,7 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
                 ref: "nameContains",
                 fieldLabel: "Search by country name",
                 validationDelay: 500,
+                emptyText: 'Lebanon',
                 listeners: {
                     "valid": this.updateFilter,
                     scope: this
