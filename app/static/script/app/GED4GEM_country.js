@@ -93,14 +93,14 @@ GED_country = Ext.extend(gxp.Viewer, {
                 autoLoadFeatures: true,
                 autoSetLayer: false,
                 paging: false,
-                maxFeatures: 3,
+                maxFeatures: 25,
                 layer: {
                     source: "local",
-                    name: "ged:test_simple_geom"
+                    name: "ged:country_facts"
                 }
             }, {
                 ptype: "gxp_featuregrid",
-                alwaysDisplayOnMap: true,
+                //alwaysDisplayOnMap: true,
                 autoLoadFeatures: true,
                 //selectOnMap: true,
                 id: "grid",
