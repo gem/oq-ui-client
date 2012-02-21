@@ -112,6 +112,9 @@ GED_country = Ext.extend(gxp.Viewer, {
                     loadMask: true,
                     propertyNames: propertyNames
                 },
+                controlOptions: {
+                    multiple: true,
+                                }
             }, {
                 ptype: "app_countryinfo",
                 id: "traceform",
@@ -131,10 +134,6 @@ GED_country = Ext.extend(gxp.Viewer, {
                     propertyNames: propertyNames
                 }
             }, {
-            	ptype: "gxp_measure",
-            	actionTarget: {target: "paneltbar", index: 6},
-            	toggleGroup: "main"
-            }, {
             	ptype: "gxp_zoomtoextent",
             	actionTarget: "paneltbar"
             }, {
@@ -146,7 +145,7 @@ GED_country = Ext.extend(gxp.Viewer, {
             }, {
                 ptype: "gxp_zoomtoselectedfeatures",
                 featureManager: "featuremanager",
-                actionTarget: "traceform_tooltarget",
+                actionTarget: "paneltbar",
                 tooltip: "Zoom to selected closure"
             }]
         });
