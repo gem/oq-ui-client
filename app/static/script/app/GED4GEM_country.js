@@ -131,13 +131,6 @@ GED_country = Ext.extend(gxp.Viewer, {
                     propertyNames: propertyNames
                 }
             }, {
-        		ptype: "gxp_legend",
-        		outputTarget: "west",
-        		outputConfig: {
-        		    title: this.legendTabTitle,
-        		    autoScroll: true
-        		}
-        	}, {
             	ptype: "gxp_measure",
             	actionTarget: {target: "paneltbar", index: 6},
             	toggleGroup: "main"
