@@ -44,16 +44,15 @@ GED_country = Ext.extend(gxp.Viewer, {
                     defaults: {
                        hideBorders: true,
                        autoScroll: true
-                
                     },
                     items: [{
-                        id: "tree",
-                        title: "Layers"
-                    }, {
                         id: 'trace',
                         title: "Layer Information",
                         padding: 10
-                    }]
+                    }, {
+                        id: "tree",
+                        title: "Layers"
+                    }, ]
                 },
 		"map", {
                     id: "featuregrid",
@@ -63,7 +62,8 @@ GED_country = Ext.extend(gxp.Viewer, {
                     height: 200,
                     split: true,
                     collapseMode: "mini",
-                }]
+                }],
+                bbar: {id: "mybbar"},
             }],
             
             tools: [{
@@ -93,22 +93,25 @@ GED_country = Ext.extend(gxp.Viewer, {
                 autoLoadFeatures: true,
                 autoSetLayer: false,
                 paging: false,
-                maxFeatures: 100
+                maxFeatures: 3,
+                layer: {
+                    source: "local",
+                    name: "ged:test_simple_geom"
+                }
             }, {
                 ptype: "gxp_featuregrid",
                 alwaysDisplayOnMap: true,
-                selectOnMap: true,
+                autoLoadFeatures: true,
+                //selectOnMap: true,
                 id: "grid",
-                displayMode: "selected",
+                //displayMode: "selected",
                 featureManager: "featuremanager",
                 outputTarget: "featuregrid",
                 outputConfig: {
                     id: "grid",
+                    loadMask: true,
                     propertyNames: propertyNames
                 },
-                controlOptions: {
-                    multiple: true,
-                }
             }, {
                 ptype: "app_countryinfo",
                 id: "traceform",
@@ -135,18 +138,6 @@ GED_country = Ext.extend(gxp.Viewer, {
         		    autoScroll: true
         		}
         	}, {
-                ptype: "gxp_googlegeocoder",
-                outputTarget: "paneltbar",
-                outputConfig: {
-                    emptyText: "Search for a location ..."
-                }
-            }, {
-		         ptype: "gxp_wmsgetfeatureinfo",
-		         actionTarget: "paneltbar",
-	             outputConfig: {
-	                 width: 400
-	                 }
-	         }, {
             	ptype: "gxp_measure",
             	actionTarget: {target: "paneltbar", index: 6},
             	toggleGroup: "main"
