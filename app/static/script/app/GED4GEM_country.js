@@ -46,13 +46,13 @@ GED_country = Ext.extend(gxp.Viewer, {
                        autoScroll: true
                     },
                     items: [{
+                        id: "tree",
+                        title: "Layers"
+                    }, {
                         id: 'trace',
                         title: "Layer Information",
                         padding: 10
-                    }, {
-                        id: "tree",
-                        title: "Layers"
-                    }, ]
+                    }]
                 },
 		"map", {
                     id: "featuregrid",
@@ -93,10 +93,10 @@ GED_country = Ext.extend(gxp.Viewer, {
                 autoLoadFeatures: true,
                 autoSetLayer: false,
                 paging: false,
-                maxFeatures: 25,
+                maxFeatures: 3,
                 layer: {
                     source: "local",
-                    name: "ged:country_facts"
+                    name: "ged:gem_exposure"
                 }
             }, {
                 ptype: "gxp_featuregrid",
@@ -115,8 +115,8 @@ GED_country = Ext.extend(gxp.Viewer, {
                 controlOptions: {
                     multiple: true,
                                 }
-            }, {
-                ptype: "app_countryinfo",
+            }, /*{
+                ptype: "app_exposure",
                 id: "traceform",
                 featureManager: "featuremanager",
                 featureEditor: "featureeditor",
@@ -133,7 +133,7 @@ GED_country = Ext.extend(gxp.Viewer, {
                 outputConfig: {
                     propertyNames: propertyNames
                 }
-            }, {
+            },*/ {
             	ptype: "gxp_zoomtoextent",
             	actionTarget: "paneltbar"
             }, {
@@ -143,6 +143,12 @@ GED_country = Ext.extend(gxp.Viewer, {
             	ptype: "gxp_navigationhistory",
             	actionTarget: "paneltbar"
             }, {
+		         ptype: "gxp_wmsgetfeatureinfo",
+		         actionTarget: "paneltbar",
+	             outputConfig: {
+	                 width: 400
+	                 }
+	         }, {
                 ptype: "gxp_zoomtoselectedfeatures",
                 featureManager: "featuremanager",
                 actionTarget: "paneltbar",
