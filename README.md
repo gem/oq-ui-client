@@ -1,6 +1,6 @@
 # mapping apps
 
-A web based mapping tools for use within the GEM Sandbox mapping framework.
+A web based mapping tools for use within the GEM Sandbox mapping framework. Please note that this repository is home to many web mapping tools each with it's respective index_projectname.html file. The index.html needs to be replaced with the contents of the index-projectname.html for each application.
 
 ## Setup
 curl -L https://github.com/opengeo/readygxp/raw/master/readygxp.sh | sh -s myapp
