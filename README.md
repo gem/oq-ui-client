@@ -1,40 +1,20 @@
 # FaultedEarth #
 
-A web based editor for managing earthquake related spatial data.
+A web based map for viewing aggregate country exposure date. 
 
-Developed by [OpenGeo](http://opengeo.org/) in support of the [Global Earthquake Model](http://www.globalquakemodel.org/).
-
-## Prerequisites
-
-File uploads go into a temporary workspace on GeoServer. To make this work,
-GeoServer needs to be configured with a workspace named "temp" and a namespace
-uri of http://geonode.org/temporary.
-
-## Setup
+Setup
 curl -L https://github.com/opengeo/readygxp/raw/master/readygxp.sh | sh -s myapp
+Enhancements to come later. For now, an application can be run as follows:
 
-Navigate to http://localhost:8080/ to run the application in debug mode. By
-default, `ant debug` will proxy `/geoserver` to 
-http://184.106.119.223/geoserver-geonode-dev/. To run the application against a
-different GeoServer instance, call
+Debug Mode
+Loads all scripts uncompressed.
 
-    ant debug -Dapp.proxy.geoserver=http://path/to/your/geoserver
+ant init
+ant debug
+This will give you an application available at http://localhost:8080/ by default. You only need to run ant init once (or any time dependencies change).
 
-To run the application on a different port than 8080 (e.g. 9080), run
+Prepare App for Deployment
+To create a servlet run the following:
 
-    ant debug -Dapp.port=9080 
-
-## Prepare App for Deployment
-
-To create a static war servlet run the following:
-
-    ant static-war
-
-The servlet `FaultedEarth.war` will be assembled in the `build` directory.
-
-To use a different path for the local GeoServer than `/geoserver-geonode-dev/`,
-you can add the following option to the `ant static-war` command:
-
-    -Dapp.deploy.geoserver=<geoserver_path>
-
-where <geoserver_path> is e.g. `/geoserver/`
+ant
+The servlet will be assembled in the build directory.
