@@ -1,6 +1,5 @@
-# FaultedEarth #
 
-A web based map for viewing aggregate country exposure date. 
+A web based mapping tools for use within the GEM Sandbox mapping framework.
 
 Setup
 curl -L https://github.com/opengeo/readygxp/raw/master/readygxp.sh | sh -s myapp
