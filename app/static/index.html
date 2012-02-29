@@ -43,8 +43,6 @@
             Ext.BLANK_IMAGE_URL = "theme/app/img/blank.gif";
             OpenLayers.ImgPath = "externals/openlayers/img/";
             
-
-            
             var app = new GED_country({
                 
                 localGeoServerUrl: "/geoserver/",
@@ -85,18 +83,34 @@
                         name: "TERRAIN",
                         group: "background"
                     }, {
-                        source: "osm",
-                        name: "mapnik",
-                        group: "background",
-                        visibility: false
+                        source: "local",
+                        name: "ged:gadm_country_facts_90",
+                        title: "Country Facts 1990",
+                        isBaseLayer: false,
+                        visibility:false
                     }, {
-                        source: "ol",
-                        group: "background",
-                        fixed: true,
-                        type: "OpenLayers.Layer",
-                        args: [
-                            "None", {visibility: false}
-                        ]
+                        source: "local",
+                        name: "ged:gadm_country_facts_95",
+                        title: "Country Facts 1995",
+                        isBaseLayer: false,
+                        visibility:false
+                    }, {
+                        source: "local",
+                        name: "ged:gadm_country_facts_00",
+                        title: "Country Facts 2000",
+                        isBaseLayer: false,
+                        visibility:false
+                    }, {
+                        source: "local",
+                        name: "ged:gadm_country_facts_05",
+                        title: "Country Facts 2005",
+                        isBaseLayer: false,
+                        visibility:false
+                    }, {
+                        source: "local",
+                        name: "ged:gadm_country_facts_10",
+                        title: "Country Facts 2010",
+                        isBaseLayer: false,
                     }],
                     center: [0, 0],
                     zoom: 2
