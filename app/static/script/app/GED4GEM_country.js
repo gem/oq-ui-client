@@ -77,7 +77,7 @@ GED_country = Ext.extend(gxp.Viewer, {
                     modal: true,
                     bodyCfg: {
                         tag: "iframe",
-                        src: "faulted_earth_documentation.html",
+                        src: "GED4GEM_country_help.html",
                         style: {border: 0}
                     }
                 },
