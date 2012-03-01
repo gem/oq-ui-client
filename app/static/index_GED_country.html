@@ -43,8 +43,6 @@
             Ext.BLANK_IMAGE_URL = "theme/app/img/blank.gif";
             OpenLayers.ImgPath = "externals/openlayers/img/";
             
-
-            
             var app = new GED_country({
                 
                 localGeoServerUrl: "/geoserver/",
@@ -85,27 +83,34 @@
                         name: "TERRAIN",
                         group: "background"
                     }, {
-                        source: "google",
-                        title: "Google Hybrid",
-                        name: "HYBRID",
-                        group: "background"
-                    }, {
-                        source: "osm",
-                        name: "mapnik",
-                        group: "background",
-                        visibility: false
-                    }, {
-                        source: "ol",
-                        group: "background",
-                        fixed: true,
-                        type: "OpenLayers.Layer",
-                        args: [
-                            "None", {visibility: false}
-                        ]
+                        source: "local",
+                        name: "ged:country_facts_1990",
+                        title: "Country Facts 1990",
+                        isBaseLayer: false,
+                        visibility:false
                     }, {
                         source: "local",
-                        name: "ged:country_facts_orig",
-                        title: "Country Facts"
+                        name: "ged:country_facts_1995",
+                        title: "Country Facts 1995",
+                        isBaseLayer: false,
+                        visibility:false
+                    }, {
+                        source: "local",
+                        name: "ged:country_facts_2000",
+                        title: "Country Facts 2000",
+                        isBaseLayer: false,
+                        visibility:false
+                    }, {
+                        source: "local",
+                        name: "ged:country_facts_2005",
+                        title: "Country Facts 2005",
+                        isBaseLayer: false,
+                        visibility:false
+                    }, {
+                        source: "local",
+                        name: "ged:country_facts_2010",
+                        title: "Country Facts 2010",
+                        isBaseLayer: false,
                     }],
                     center: [0, 0],
                     zoom: 2

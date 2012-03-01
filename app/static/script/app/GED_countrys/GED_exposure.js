@@ -4,7 +4,7 @@
 
 FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
     
-    ptype: "app_countryinfo",
+    ptype: "app_exposure",
     
     /** api: config[featureManager]
      *  ``String`` id of the FeatureManager to add uploaded features to
@@ -98,7 +98,18 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
                     "valid": this.updateFilter,
                     scope: this
                 }
-              }],
+              }, {
+                xtype: "container",
+                layout: "hbox",
+                cls: "composite-wrap",
+                fieldLabel: "Zoom to feature in grid",
+                items: [{
+                    id: this.id + "_tooltarget",
+                    xtype: "container",
+                    cls: "toolbar-spaced",
+                    layout: "toolbar"
+                }]
+            }],
             listeners: {
                 "added": function(cmp, ct) {
                     ct.on({

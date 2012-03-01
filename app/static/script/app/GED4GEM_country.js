@@ -2,21 +2,21 @@ GED_country = Ext.extend(gxp.Viewer, {
 
     legendTabTitle: "Legend",
 	summaryId: null,
-    
+
     constructor: function(config) {
-        
+
         Ext.Window.prototype.shadow = false;
-        
+
         // property names for FeatureEditor and FeatureGrid
         var propertyNames = {
             // custom fied names for the fault summary table
             "fault_name": "Fault Name",
-            
+
         };
 
         Ext.applyIf(config, {
             proxy: "/proxy?url=",
-                
+
             mapItems: [{
                 xtype: "gx_zoomslider",
                 vertical: true,
@@ -46,13 +46,13 @@ GED_country = Ext.extend(gxp.Viewer, {
                        autoScroll: true
                     },
                     items: [{
-                        id: 'trace',
-                        title: "Layer Information",
-                        padding: 10
-                    }, {
                         id: "tree",
                         title: "Layers"
-                    }, ]
+                    }, {
+                        id: 'trace',
+                        title: "Search by Country Name",
+                        padding: 10
+                    }]
                 },
 		"map", {
                     id: "featuregrid",
@@ -61,11 +61,12 @@ GED_country = Ext.extend(gxp.Viewer, {
                     border: false,
                     height: 200,
                     split: true,
-                    collapseMode: "mini",
+                    collapsed: true,
+                    collapseMode: "mini"
                 }],
-                bbar: {id: "mybbar"},
+                bbar: {id: "mybbar"}
             }],
-            
+
             tools: [{
                 actionTarget: {target: "paneltbar", index: 0},
                 outputAction: 0,
@@ -76,35 +77,32 @@ GED_country = Ext.extend(gxp.Viewer, {
                     modal: true,
                     bodyCfg: {
                         tag: "iframe",
-                        src: "faulted_earth_documentation.html",
+                        src: "GED4GEM_country_help.html",
                         style: {border: 0}
                     }
                 },
                 actions: [{
                     iconCls: "icon-geoexplorer",
-                    text: "Help",
+                    text: "Help"
                 }]
             }, {
                 ptype: "gxp_layertree",
-                outputTarget: "tree",
+                outputTarget: "tree"
             }, {
                 ptype: "gxp_featuremanager",
                 id: "featuremanager",
                 autoLoadFeatures: true,
                 autoSetLayer: false,
                 paging: false,
-                maxFeatures: 3,
+                maxFeatures: 25,
                 layer: {
                     source: "local",
-                    name: "ged:test_simple_geom"
+                    name: "ged:country_facts"
                 }
             }, {
                 ptype: "gxp_featuregrid",
-                alwaysDisplayOnMap: true,
                 autoLoadFeatures: true,
-                //selectOnMap: true,
                 id: "grid",
-                //displayMode: "selected",
                 featureManager: "featuremanager",
                 outputTarget: "featuregrid",
                 outputConfig: {
@@ -112,6 +110,9 @@ GED_country = Ext.extend(gxp.Viewer, {
                     loadMask: true,
                     propertyNames: propertyNames
                 },
+                controlOptions: {
+                    multiple: true,
+                }
             }, {
                 ptype: "app_countryinfo",
                 id: "traceform",
@@ -125,36 +126,36 @@ GED_country = Ext.extend(gxp.Viewer, {
                 actionTarget: "traceform_tooltarget",
                 autoLoadFeatures: true,
                 readOnly: true,
-                //createFeatureActionText: "Draw",
-                //editFeatureActionText: "Modify",
                 outputConfig: {
                     propertyNames: propertyNames
                 }
             }, {
-        		ptype: "gxp_legend",
-        		outputTarget: "west",
-        		outputConfig: {
-        		    title: this.legendTabTitle,
-        		    autoScroll: true
-        		}
-        	}, {
-            	ptype: "gxp_measure",
-            	actionTarget: {target: "paneltbar", index: 6},
-            	toggleGroup: "main"
+		        ptype: "gxp_wmsgetfeatureinfo",
+		        actionTarget: "paneltbar",
+		        format: "grid",
+	            outputConfig: {
+	                width: 500
+	            }
+	        }, {
+	            ptype: "gxp_zoomtoextent",
+	            actionTarget: "paneltbar"
             }, {
-            	ptype: "gxp_zoomtoextent",
-            	actionTarget: "paneltbar"
+                ptype: "gxp_zoom",
+                actionTarget: "paneltbar"
             }, {
-            	ptype: "gxp_zoom",
-            	actionTarget: "paneltbar"
-            }, {
-            	ptype: "gxp_navigationhistory",
-            	actionTarget: "paneltbar"
+                ptype: "gxp_navigationhistory",
+                actionTarget: "paneltbar"
             }, {
                 ptype: "gxp_zoomtoselectedfeatures",
                 featureManager: "featuremanager",
-                actionTarget: "traceform_tooltarget",
+                actionTarget: "paneltbar",
                 tooltip: "Zoom to selected closure"
+            }, {
+                ptype: "gxp_googlegeocoder",
+                outputTarget: "paneltbar",
+                outputConfig: {
+                    emptyText: "Search for a country ..."
+                }
             }]
         });
 
