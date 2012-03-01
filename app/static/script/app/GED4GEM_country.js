@@ -111,7 +111,7 @@ GED_country = Ext.extend(gxp.Viewer, {
                     propertyNames: propertyNames
                 },
                 controlOptions: {
-                    multiple: true
+                    multiple: true,
                 }
             }, {
                 ptype: "app_countryinfo",
@@ -133,9 +133,8 @@ GED_country = Ext.extend(gxp.Viewer, {
 		        ptype: "gxp_wmsgetfeatureinfo",
 		        actionTarget: "paneltbar",
 		        format: "grid",
-		        layerParams: "url",
 	            outputConfig: {
-	                width: 400
+	                width: 500
 	            }
 	        }, {
 	            ptype: "gxp_zoomtoextent",
