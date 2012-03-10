@@ -1,3 +1,19 @@
+<!--
+ Copyright (c) 2010-2012, GEM Foundation.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as
+    published by the Free Software Foundation, either version 3 of the
+    License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/agpl.html>. -->
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -43,6 +59,8 @@
             Ext.BLANK_IMAGE_URL = "theme/app/img/blank.gif";
             OpenLayers.ImgPath = "externals/openlayers/img/";
             
+
+            
             var app = new GED_country({
                 
                 localGeoServerUrl: "/geoserver/",
@@ -83,34 +101,22 @@
                         name: "TERRAIN",
                         group: "background"
                     }, {
-                        source: "local",
-                        name: "ged:country_facts_1990",
-                        title: "Country Facts 1990",
-                        isBaseLayer: false,
-                        visibility:false
+                        source: "osm",
+                        name: "mapnik",
+                        group: "background",
+                        visibility: false
+                    }, {
+                        source: "ol",
+                        group: "background",
+                        fixed: true,
+                        type: "OpenLayers.Layer",
+                        args: [
+                            "None", {visibility: false}
+                        ]
                     }, {
                         source: "local",
-                        name: "ged:country_facts_1995",
-                        title: "Country Facts 1995",
-                        isBaseLayer: false,
-                        visibility:false
-                    }, {
-                        source: "local",
-                        name: "ged:country_facts_2000",
-                        title: "Country Facts 2000",
-                        isBaseLayer: false,
-                        visibility:false
-                    }, {
-                        source: "local",
-                        name: "ged:country_facts_2005",
-                        title: "Country Facts 2005",
-                        isBaseLayer: false,
-                        visibility:false
-                    }, {
-                        source: "local",
-                        name: "ged:country_facts_2010",
-                        title: "Country Facts 2010",
-                        isBaseLayer: false,
+                        name: "ged:gem_exposure",
+                        title: "GED4GEM exposure"
                     }],
                     center: [0, 0],
                     zoom: 2
