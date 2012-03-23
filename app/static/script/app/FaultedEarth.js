@@ -286,6 +286,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 outputTarget: "trace_featuregrid",
                 outputConfig: {
                     id: "trace_grid",
+                    loadMask: true,
                     propertyNames: propertyNames
                 },
                 controlOptions: {
@@ -308,6 +309,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 outputTarget: "summary_featuregrid",
                 outputConfig: {
                     id: "summary_grid",
+                    loadMask: true,
                     propertyNames: propertyNames
                 },
                 controlOptions: {
@@ -329,6 +331,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 outputTarget: "site_featuregrid",
                 outputConfig: {
                     id: "site_grid",
+                    loadMask: true,
                     propertyNames: propertyNames
                 },
                 controlOptions: {
@@ -350,6 +353,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 outputTarget: "fault_featuregrid",
                 outputConfig: {
                     id: "fault_grid",
+                    loadMask: true,
                     propertyNames: propertyNames
                 },
                 controlOptions: {
@@ -371,6 +375,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 outputTarget: "source_featuregrid",
                 outputConfig: {
                     id: "source_grid",
+                    loadMask: true,
                     propertyNames: propertyNames
                 },
                 controlOptions: {
