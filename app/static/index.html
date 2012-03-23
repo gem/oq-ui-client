@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>GED4GEM</title>
+        <title>FaultedEarth</title>
         
         <!-- IE 8 Compatibility -->
         <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
@@ -61,7 +61,7 @@
             
 
             
-            var app = new GED_country({
+            var app = new FaultedEarth({
                 
                 localGeoServerUrl: "/geoserver/",
                 localGeoNodeUrl: 'http://' + window.location.hostname + "/proxy/?url=",
@@ -100,7 +100,12 @@
                         title: "Google Terrain",
                         name: "TERRAIN",
                         group: "background"
-                    }, {
+                    },{
+                        source: "google",
+                        title: "Google Hybrid",
+                        name: "HYBRID",
+                        group: "background"
+                    },{
                         source: "osm",
                         name: "mapnik",
                         group: "background",
@@ -113,11 +118,27 @@
                         args: [
                             "None", {visibility: false}
                         ]
+                    },{
+                        source: "local",
+                        name: "geonode:observations_faultsource",
+                        title: "Fault Source"
+                    },{
+                        source: "local",
+                        name: "geonode:observations_fault",
+                        title: "Neotectonic Fault"
+                    },{
+                        source: "local",
+                        name: "geonode:fault_section_view",
+                        title : "Neotectonic Sections"
                     }, {
                         source: "local",
-                        name: "ged:gem_exposure",
-                        title: "GED4GEM exposure"
-                    }],
+                        name: "geonode:observations_trace",
+                        title: "Traces",
+                    }, {
+                        source: "local",
+                        name: "geonode:observations_siteobservation",
+                        title : "Site Observations"
+                        }],
                     center: [0, 0],
                     zoom: 2
                 }
