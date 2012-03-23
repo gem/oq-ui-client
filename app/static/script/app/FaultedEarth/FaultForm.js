@@ -131,7 +131,7 @@ FaultedEarth.FaultForm = Ext.extend(gxp.plugins.Tool, {
                                 alert('Fault source generated');
                             },
                             failure: function(response, opts){
-                                alert('Failed to generate the Fault source');
+                                alert('failed to generate fault source: ' + response);
                             },
 
                             scope: this
