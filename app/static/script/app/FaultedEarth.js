@@ -369,6 +369,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
             }, {
                 ptype: "gxp_featuregrid",
                 alwaysDisplayOnMap: true,
+                ignoreFields: ["episodi_is"],
                 selectOnMap: true,
                 displayMode: "selected",
                 featureManager: "source_featuremanager",
