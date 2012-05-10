@@ -17,7 +17,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>GED4GEM</title>
+        <title>Geodetic</title>
         
         <!-- IE 8 Compatibility -->
         <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">
@@ -61,7 +61,7 @@
             
 
             
-            var app = new GED_exposure({
+            var app = new Geodetic({
                 
                 localGeoServerUrl: "/geoserver/",
                 localGeoNodeUrl: 'http://' + window.location.hostname + "/proxy/?url=",
@@ -101,6 +101,11 @@
                         name: "TERRAIN",
                         group: "background"
                     }, {
+                        source: "google",
+                        title: "Google Hybrid",
+                        name: "HYBRID",
+                        group: "background"
+                    },{
                         source: "osm",
                         name: "mapnik",
                         group: "background",
@@ -115,42 +120,16 @@
                         ]
                     }, {
                         source: "local",
-                        name: "ged:jpn_pop_vals_rural",
-                        title: "Japan Rural"
-                    }, {
-                        source: "local",
-                        name: "ged:jpn_pop_vals_urban",
-                        title: "Japan Urban"
-                    }, {
-                        source: "local",
-                        name: "ged:ita_pop_values_rural_fix",
-                        title: "Italy Rural"
-                    }, {
-                        source: "local",
-                        name: "ged:ita_pop_values_urban_fix",
-                        title: "Italy Urban"
-                    }, {
-                        source: "local",
-                        name: "ged:lux_pop_vals_rural",
-                        title: "luxembourg Rural"
-                    }, {
-                        source: "local",
-                        name: "ged:lux_pop_vals_urban",
-                        title: "luxembourg Urban"
-                    }, {
-                        source: "local",
-                        name: "ged:mac_pop_vals_rural",
-                        title: "macau Rural"
-                    }, {
-                        source: "local",
-                        name: "ged:mac_pop_vals_urban",
-                        title: "macau Urban"
+                        name: "geodetic:geodetic_geodetic",
+                        title : "Geodedic Sample"
+
                     }],
-                    center: [0, 0],
-                    zoom: 2
+                    center: [86, 30],
+                    zoom: 3
                 }
                 
             });
+
 
        </script>
 	<!--Google Analytics-->
