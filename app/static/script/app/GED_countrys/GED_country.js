@@ -114,7 +114,18 @@ FaultedEarth.CountryInfo = Ext.extend(gxp.plugins.Tool, {
                     "valid": this.updateFilter,
                     scope: this
                 }
-              }],
+              }, {
+                xtype: "container",
+                layout: "hbox",
+                cls: "composite-wrap",
+                fieldLabel: "Zoom to feature in grid",
+                items: [{
+                    id: this.id + "_tooltarget",
+                    xtype: "container",
+                    cls: "toolbar-spaced",
+                    layout: "toolbar"
+                }]
+            }],
             listeners: {
                 "added": function(cmp, ct) {
                     ct.on({
