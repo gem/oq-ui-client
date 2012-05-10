@@ -180,4 +180,3 @@ GED_country = Ext.extend(gxp.Viewer, {
 
 });
 
-
