@@ -110,10 +110,10 @@ GED_country = Ext.extend(gxp.Viewer, {
                 autoLoadFeatures: true,
                 autoSetLayer: false,
                 paging: false,
-                maxFeatures: 3,
+                maxFeatures: 25,
                 layer: {
                     source: "local",
-                    name: "ged:gem_exposure"
+                    name: "ged:country_facts"
                 }
             }, {
                 ptype: "gxp_featuregrid",
@@ -131,6 +131,30 @@ GED_country = Ext.extend(gxp.Viewer, {
                 }
             }, {
                 ptype: "app_countryinfo",
+                id: "traceform",
+                featureManager: "featuremanager",
+                featureEditor: "featureeditor",
+                outputTarget: "trace"
+            }, {
+                ptype: "gxp_featureeditor",
+                id: "featureeditor",
+                featureManager: "featuremanager",
+                actionTarget: "traceform_tooltarget",
+                autoLoadFeatures: true,
+                readOnly: true,
+                outputConfig: {
+                    propertyNames: propertyNames
+                }
+            }, {
+		        ptype: "gxp_wmsgetfeatureinfo",
+		        actionTarget: "paneltbar",
+		        format: "grid",
+	            outputConfig: {
+	                width: 500
+	            }
+	        }, {
+	            ptype: "gxp_zoomtoextent",
+	            actionTarget: "paneltbar"
             }, {
                 ptype: "gxp_zoom",
                 actionTarget: "paneltbar"
@@ -138,12 +162,6 @@ GED_country = Ext.extend(gxp.Viewer, {
                 ptype: "gxp_navigationhistory",
                 actionTarget: "paneltbar"
             }, {
-		         ptype: "gxp_wmsgetfeatureinfo",
-		         actionTarget: "paneltbar",
-	             outputConfig: {
-	                 width: 400
-	                 }
-	         }, {
                 ptype: "gxp_zoomtoselectedfeatures",
                 featureManager: "featuremanager",
                 actionTarget: "paneltbar",
@@ -161,5 +179,4 @@ GED_country = Ext.extend(gxp.Viewer, {
     }
 
 });
-
 
