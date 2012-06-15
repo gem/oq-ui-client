@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2010-2012, GEM Foundation.
+  Copyright (c) 2010-2012, GEM Foundation.
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -14,57 +14,6 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/agpl.html>. */
 
-NeoTectonicRegionEditor = Ext.extend(gxp.plugins.FeatureEditor,
-  {
-      ptype: "gem_neotectonic_featureeditor",
-      addActions: function() {
-          NeoTectonicRegionEditor.superclass.addActions.apply(this, arguments);
-          var featureManager = this.getFeatureManager();
-          var featureLayer = featureManager.featureLayer;
-
-	  featureLayer.events.on({
-	      "featureselected": function(evt) {
-		  if (this.popup && this.popup.isVisible()) {
-		      var grid = this.popup.grid;
-		      Ext.iterate(grid.customEditors, function(fieldName) {
-			  var gridEditor = this[fieldName];
-			  var field = gridEditor.field;
-			  // hack field.getErrors
-			  var old_getErrors = field.getErrors;
-			  field.getErrors = function(value) {
-			      var errors = old_getErrors.apply(field, [value]) || [];
-
-			      // CUSTOM VALIDATION
-			      switch(fieldName) {
-			      case 'strike':
-				  if (! (value >= 0 && value <= 360) )
-				      errors.push("Strike has to be between 0 and 360");
-				  break;
-			      case 'length_min':
-				  var max_length = grid.customEditors['length_max'].field.getValue();
-				  if (max_length && value >= max_length)
-				      errors.push("Min length has to be less than max length");
-				  break;
-			      case 'length_max':
-				  var min_length = grid.customEditors['length_min'].field.getValue();
-				  if (min_length && value <= min_length)
-				      errors.push("Max length has to be greater than min length");
-				  break;
-
-			      }
-			      return errors;
-			  }
-		      });
-		  }
-		  return true;
-	      },
-	      scope: this
-	  });
-      }
-  }
-				    );
-Ext.preg(NeoTectonicRegionEditor.prototype.ptype, NeoTectonicRegionEditor);
-				     
 FaultedEarth = Ext.extend(gxp.Viewer, {
 
     legendTabTitle: "Legend",
@@ -161,7 +110,6 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
     	    "length_min": "Length Min",
     	    "length_max": "Length Max",
     	    "length_pre": "Length Pref",
-    	    "length_pre": "Length Pref",
     	    "mag_min": "Magnitude Min",
     	    "mag_max": "Magnitude Max",
     	    "mag_pref": "Magnitude Pref",
@@ -189,7 +137,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                     height: 180,
                 }],
             }, {
-                title: 'Neotectonic Section Summary Grid',
+                title: 'Neotectonic Fault Section Summary Grid',
                 items: [{
                     id: "summary_featuregrid",
                     layout: "fit",
@@ -441,10 +389,10 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 outputTarget: "trace"
             }, {
                 ptype: "gxp_featureeditor",
+		autoLoadFeatures: true,
                 id: "trace_featureeditor",
                 featureManager: "trace_featuremanager",
                 actionTarget: "traceform_tooltarget",
-                autoLoadFeatures: true,
                 createFeatureActionText: "Draw",
                 editFeatureActionText: "Modify",
 		        snappingAgent: "snapping-agent",
@@ -458,13 +406,9 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 featureEditor: "featureeditor",
                 outputTarget: "summary"
             }, {
-                ptype: "gem_neotectonic_featureeditor",
-                id: "featureeditor",
-                featureManager: "summary_featuremanager",
-                modifyOnly: true,
-                actionTarget: "summaryform_tooltarget",
-                editFeatureActionText: "Modify",
-                snappingAgent: "snapping-agent",
+                ptype: "gem_observation_featureeditor",
+		actionTarget: "summaryform_tooltarget",
+		featureManager: "summary_featuremanager",
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -476,13 +420,13 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 outputTarget: "site"
             }, {
                 ptype: "gxp_featureeditor",
+		autoLoadFeatures: true,
                 id: "featureeditor",
                 featureManager: "site_featuremanager",
                 actionTarget: "siteform_tooltarget",
                 createFeatureActionText: "Draw",
                 editFeatureActionText: "Modify",
                 snappingAgent: "snapping-agent",
-                autoLoadFeatures: true,
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -493,14 +437,13 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 featureEditor: "featureeditor",
                 outputTarget: "fault"
             }, {
-                ptype: "gxp_featureeditor",
-                id: "featureeditor",
+                ptype: "gem_observation_featureeditor",
+                id: "fault_featureeditor",
                 featureManager: "fault_featuremanager",
                 actionTarget: "faultform_tooltarget",
                 createFeatureActionText: "Draw",
                 editFeatureActionText: "Modify",
                 snappingAgent: "snapping-agent",
-                autoLoadFeatures: true,
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -511,13 +454,11 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 featureEditor: "featureeditor",
                 outputTarget: "source",
             }, {
-                ptype: "gxp_featureeditor",
-                id: "featureeditor",
+                ptype: "gem_observation_featureeditor",
+                id: "faultsource_featureeditor",
                 featureManager: "source_featuremanager",
                 actionTarget: "sourceform_tooltarget",
                 readOnly: true,
-                snappingAgent: "snapping-agent",
-                autoLoadFeatures: true,
                 outputConfig: {
                     propertyNames: propertyNames
                 }
