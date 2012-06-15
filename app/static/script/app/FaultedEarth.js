@@ -14,10 +14,61 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/agpl.html>. */
 
+NeoTectonicRegionEditor = Ext.extend(gxp.plugins.FeatureEditor,
+  {
+      ptype: "gem_neotectonic_featureeditor",
+      addActions: function() {
+          NeoTectonicRegionEditor.superclass.addActions.apply(this, arguments);
+          var featureManager = this.getFeatureManager();
+          var featureLayer = featureManager.featureLayer;
+
+	  featureLayer.events.on({
+	      "featureselected": function(evt) {
+		  if (this.popup && this.popup.isVisible()) {
+		      var grid = this.popup.grid;
+		      Ext.iterate(grid.customEditors, function(fieldName) {
+			  var gridEditor = this[fieldName];
+			  var field = gridEditor.field;
+			  // hack field.getErrors
+			  var old_getErrors = field.getErrors;
+			  field.getErrors = function(value) {
+			      var errors = old_getErrors.apply(field, [value]) || [];
+
+			      // CUSTOM VALIDATION
+			      switch(fieldName) {
+			      case 'strike':
+				  if (! (value >= 0 && value <= 360) )
+				      errors.push("Strike has to be between 0 and 360");
+				  break;
+			      case 'length_min':
+				  var max_length = grid.customEditors['length_max'].field.getValue();
+				  if (max_length && value >= max_length)
+				      errors.push("Min length has to be less than max length");
+				  break;
+			      case 'length_max':
+				  var min_length = grid.customEditors['length_min'].field.getValue();
+				  if (min_length && value <= min_length)
+				      errors.push("Max length has to be greater than min length");
+				  break;
+
+			      }
+			      return errors;
+			  }
+		      });
+		  }
+		  return true;
+	      },
+	      scope: this
+	  });
+      }
+  }
+				    );
+Ext.preg(NeoTectonicRegionEditor.prototype.ptype, NeoTectonicRegionEditor);
+				     
 FaultedEarth = Ext.extend(gxp.Viewer, {
 
     legendTabTitle: "Legend",
-	summaryId: null,
+    summaryId: null,
     
     constructor: function(config) {
         
@@ -407,7 +458,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 featureEditor: "featureeditor",
                 outputTarget: "summary"
             }, {
-                ptype: "gxp_featureeditor",
+                ptype: "gem_neotectonic_featureeditor",
                 id: "featureeditor",
                 featureManager: "summary_featuremanager",
                 modifyOnly: true,

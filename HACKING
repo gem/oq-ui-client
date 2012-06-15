@@ -1,0 +1,35 @@
+HOWTO
+
+* Implement a new feature for the "so-called" FaultedEarth
+  application (only the CLIENT).
+
+  I assume you have installed the whole platform correctly.
+
+  Clone the oq-ui-client repository and do a branch (or a fork
+  according to your development model)
+
+  edit the file build.xml and set the property "name" of the tag
+  "project" to "FaultedEarth".
+  
+  Copy app/static/index_FE_fault.html to app/static/index.html
+
+  Before committing remember to revert app/static/index.html
+
+  # one time command
+  in the root directory
+  git submodule init
+  git submodule update
+  ant init 
+  ant debug -Dapp.port=9080 -Dapp.proxy.geoserver=http://geonode-lp.gem.lan/geoserver  
+
+  # where 9080 is just a unbound port, and geonode-lp.gem.lan is the
+  #  public fqdn of your machine
+  
+  ### begin development cycle
+  # edit something
+  ### end development cycle
+
+  commit & push
+
+* Implement a new feature for the "so-called" FaultedEarth
+  application (only the API).
