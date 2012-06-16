@@ -49,6 +49,16 @@ faultedearth.ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
       autoLoadFeatures: true,
       snappingAgent: "snapping-agent",
 
+      /* 
+	 override addOutput to increase the default width.  Thus, the
+	 fields are clearly visible and also the visual clue of the
+	 compulsory fields can appended to the end of the field name
+       */
+      addOutput: function(config) {
+	  config.width = 400;
+	  faultedearth.ObservationFeatureEditor.superclass.addOutput.apply(this, arguments);
+      },
+
       /* override addActions as here there is the lexical scope where
        * the popup containing the form is created */
       addActions: function() {
