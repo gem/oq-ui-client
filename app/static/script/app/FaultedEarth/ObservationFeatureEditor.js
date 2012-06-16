@@ -14,6 +14,25 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/agpl.html>. */
 
+Ext.namespace("faultedearth");
+
+/* an utility function to check if a field is compulsory */
+faultedearth.isCompulsory = function(fieldName) {
+    compulsoryFields = [ 
+	'fault_name', 'section_name',
+	'sec_name', 'compiled_by',
+	'low_d_min', 'low_d_max', 'low_pref', 'low_d_com',
+	'u_sm_d_min', 'u_sm_d_max', 'u_sm_d_pre', 'u_sm_d_com',
+	'dip_min', 'dip_max', 'dip_pref', 'dip_com',
+	'dip_dir', 'slip_typ', 
+	'vertical_slip_rate_min', 'vertical_slip_rate_max', 
+	'vertical_slip_rate_pref', 'vertical_slip_rate_com',
+	'dip_slip_rate_min', 'dip_slip_rate_max', 'dip_slip_rate_pref',
+	'aseis_slip', 'aseis_com'
+    ];
+    return compulsoryFields.indexOf(fieldName) != -1;
+};
+
 /**
  * @class ObservationFeatureEditor
  * @extends gxp.plugins.FeatureEditor
@@ -22,7 +41,7 @@
  * Source
  */
 
-ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
+faultedearth.ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
   {
       ptype: "gem_observation_featureeditor",
       modifyOnly: true,
@@ -30,16 +49,15 @@ ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
       autoLoadFeatures: true,
       snappingAgent: "snapping-agent",
 
-      /* override addActions as it is the place where the popup
-       * containing the form is created */
+      /* override addActions as here there is the lexical scope where
+       * the popup containing the form is created */
       addActions: function() {
-          ObservationFeatureEditor.superclass.addActions.apply(this, arguments);
+          faultedearth.ObservationFeatureEditor.superclass.addActions.apply(this, arguments);
           var featureManager = this.getFeatureManager();
           var featureLayer = featureManager.featureLayer;
 
 	  /* listen to the featureselected event as only after it is
 	   * fired the popup with the form has been created */
-
 	  featureLayer.events.on({
 	      "featureselected": function(evt) {
 		  if (this.popup && this.popup.isVisible()) {
@@ -50,6 +68,14 @@ ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
 		      Ext.iterate(grid.customEditors, function(fieldName) {
 			  var gridEditor = this[fieldName];
 			  var field = gridEditor.field;
+
+			  /* for compulsory field management. Do not
+			   * allow an user to leave a compulsory field
+			   * blank */
+			  if (faultedearth.isCompulsory(fieldName)) {
+			      field.allowBlank = false;
+			  }
+
 			  // hack field.getErrors
 			  var old_getErrors = field.getErrors;
 			  field.getErrors = function(value) {
@@ -205,4 +231,4 @@ ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
   }
 				     );
 
-Ext.preg(ObservationFeatureEditor.prototype.ptype, ObservationFeatureEditor); 
+Ext.preg(faultedearth.ObservationFeatureEditor.prototype.ptype, faultedearth.ObservationFeatureEditor); 

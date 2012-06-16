@@ -22,7 +22,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
     constructor: function(config) {
         
         Ext.Window.prototype.shadow = false;
-        
+
         // property names for FeatureEditor and FeatureGrid
         var propertyNames = {
             // custom fied names for the fault summary table
@@ -124,7 +124,14 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
             "area_max": "Area Max",
             "area_pref": "Area Pref",
         };
-        
+
+	/* add a visual clue for compulsory fields */
+	Ext.iterate(propertyNames, function(field) {
+	    if (faultedearth.isCompulsory(field)) {
+		propertyNames[field] += " <small>(*)</small>";
+	    }
+	});
+
         var tabs = new Ext.TabPanel({
         	animCollapse: true,
         	activeTab : 0,
