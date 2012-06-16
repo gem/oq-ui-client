@@ -77,9 +77,14 @@ function checkBetween(field, value, min, max) {
     var description = fromFieldToDescription(field);
     if (!value)
 	return;
-    if (value < min || value > max) {
+    if (value <= min || value >= max) {
 	return description + " has to be between " + min + " and " + max;
     }
+}
+
+function checkCompleteness(field, value) {
+    value = parseFloat(value);
+    checkBetween(field, value, 1, 4);
 }
 
 function checkAngle(field, value) {
