@@ -66,7 +66,6 @@ checkInterval = function(grid, field, value) {
     if (min_val && max_val && min_val >= max_val) {
 	return description + " interval wrong. Max " + description + " has to be greater than the minimum " + description;
     }
-    console.log('preferred check: ' + [min_val, max_val, pref_val]);
     if (min_val && max_val && pref_val && (pref_val < min_val || pref_val > max_val)) {
 	return "Preferred " + description + " has to be between the minimum and the maximum " + description;
     }
