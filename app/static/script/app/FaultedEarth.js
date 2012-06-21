@@ -123,6 +123,8 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
             "area_min": "Area Min",
             "area_max": "Area Max",
             "area_pref": "Area Pref",
+	    /* for site observations */
+	    "fault_section_id": "Fault Section ID"
         };
 
 	/* add a visual clue for compulsory fields */
@@ -426,14 +428,12 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 featureEditor: "featureeditor",
                 outputTarget: "site"
             }, {
-                ptype: "gxp_featureeditor",
+                ptype: "gem_observation_featureeditor",
 		autoLoadFeatures: true,
                 id: "featureeditor",
                 featureManager: "site_featuremanager",
                 actionTarget: "siteform_tooltarget",
                 createFeatureActionText: "Draw",
-                editFeatureActionText: "Modify",
-                snappingAgent: "snapping-agent",
                 outputConfig: {
                     propertyNames: propertyNames
                 }

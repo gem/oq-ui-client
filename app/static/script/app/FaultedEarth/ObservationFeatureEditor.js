@@ -28,7 +28,8 @@ faultedearth.isCompulsory = function(fieldName) {
 	'vertical_slip_rate_min', 'vertical_slip_rate_max', 
 	'vertical_slip_rate_pref', 'vertical_slip_rate_com',
 	'dip_slip_rate_min', 'dip_slip_rate_max', 'dip_slip_rate_pref',
-	'aseis_slip', 'aseis_com'
+	'aseis_slip', 'aseis_com',
+	'scale', 'accuracy', 's_feature'
     ];
     return compulsoryFields.indexOf(fieldName) != -1;
 };
@@ -93,6 +94,26 @@ faultedearth.ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
 
 			      // CUSTOM VALIDATION
 			      switch(fieldName) {
+			      case 'fault_section_id':
+				  if (! value) {
+				      break;
+				  }
+				  pushError(errors,
+					    checkPositive(fieldName, value));
+				  pushError(errors,
+					    gem.utils.checkInteger(fieldName, value));
+
+				  /* fs is for fault section */
+				  var fs_grid = Ext.getCmp('summary_featuregrid');
+				  var fs_manager_id = fs_grid.featureManager;
+				  var fs_manager = fs_grid.target.tool[fs_manager_id];
+				  var fault_section_ids = Ext.collect(fs_manager, Ext.getId);
+				  value = parseInt(value);
+				  if (fault_section_ids.indexOf(value) != -1) {
+				      errors.push("Invalid fault section id");
+				  }
+				  break;
+
 			      case 'rake_min':
 			      case 'rake_max':
 			      case 'rake_pref':

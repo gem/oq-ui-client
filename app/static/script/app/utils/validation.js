@@ -14,6 +14,8 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/agpl.html>. */
 
+Ext.namespace('gem.utils');
+
 function fromFieldToDescription(field){
     /* e.g. upper_seismogenic_min =>   Upper Seismogenic Min */
     var ret = field.replace(/(\_[a-z])/g, 
@@ -83,7 +85,7 @@ function checkBetween(field, value, min, max) {
 
 function checkCompleteness(field, value) {
     value = parseFloat(value);
-    checkBetween(field, value, 1, 4);
+    checkBetween(field, value, 1, 4) || gem.utils.checkInteger(field, value);
 }
 
 function checkAngle(field, value) {
@@ -103,6 +105,15 @@ function checkPositive(field, value) {
 	return;
     if (value < 0) {
 	return description + " has to be strictly positive";
+    }
+}
+
+gem.utils.checkInteger = function(fieldName, value) {
+    var description = fromFieldToDescription(field);
+    var intValue = parseInt(value);
+    var floatValue = parseFloat(value);
+    if (intValue != floatValue) {
+	return description + " is not an integer";
     }
 }
 
