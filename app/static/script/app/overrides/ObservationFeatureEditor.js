@@ -78,7 +78,7 @@ ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
 					    checkPositive(fieldName, value));
 				  var upper_seismogenic_min_value = grid.getCurrentValue('u_sm_d_min', parseFloat);
 				  value = parseFloat(value);
-				  if (upper_seismogenic_min_value_value && value < upper_seismogenic_min_value_value) {
+				  if (upper_seismogenic_min_value && value < upper_seismogenic_min_value) {
 				      errors.push("Lower Seismogenic minimum value has to be greater than the upper seismogenic minimum value");
 				  }
 				  break;
@@ -91,7 +91,7 @@ ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
 					    checkPositive(fieldName, value));
 				  var lower_seismogenic_min_value = grid.getCurrentValue('low_d_min', parseFloat);
 				  value = parseFloat(value);
-				  if (lower_seismogenic_min_value_value && value > lower_seismogenic_min_value_value) {
+				  if (lower_seismogenic_min_value && value > lower_seismogenic_min_value) {
 				      errors.push("Lower Seismogenic minimum value has to be greater than the upper seismogenic minimum value");
 				  }
 				  break;
