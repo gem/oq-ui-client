@@ -429,7 +429,6 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 outputTarget: "site"
             }, {
                 ptype: "gem_observation_featureeditor",
-		autoLoadFeatures: true,
                 id: "featureeditor",
                 featureManager: "site_featuremanager",
                 actionTarget: "siteform_tooltarget",

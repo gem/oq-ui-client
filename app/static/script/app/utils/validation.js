@@ -109,7 +109,7 @@ function checkPositive(field, value) {
 }
 
 gem.utils.checkInteger = function(fieldName, value) {
-    var description = fromFieldToDescription(field);
+    var description = fromFieldToDescription(fieldName);
     var intValue = parseInt(value);
     var floatValue = parseFloat(value);
     if (intValue != floatValue) {

@@ -194,12 +194,6 @@ FaultedEarth.SiteForm = Ext.extend(gxp.plugins.Tool, {
         }
     },
     
-    deactivate: function() {
-        if (FaultedEarth.SiteForm.superclass.deactivate.apply(this, arguments)) {
-            this.target.tools[this.featureManager].featureStore.un("save", this.monitorSave, this);
-        }
-    },
-    
     updateFilter: function() {
         var form = this.output[0];
         var filters = [];
