@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2010-2012, GEM Foundation.
+  Copyright (c) 2010-2012, GEM Foundation.
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU Affero General Public License as
@@ -17,12 +17,12 @@
 FaultedEarth = Ext.extend(gxp.Viewer, {
 
     legendTabTitle: "Legend",
-	summaryId: null,
+    summaryId: null,
     
     constructor: function(config) {
         
         Ext.Window.prototype.shadow = false;
-        
+
         // property names for FeatureEditor and FeatureGrid
         var propertyNames = {
             // custom fied names for the fault summary table
@@ -110,7 +110,6 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
     	    "length_min": "Length Min",
     	    "length_max": "Length Max",
     	    "length_pre": "Length Pref",
-    	    "length_pre": "Length Pref",
     	    "mag_min": "Magnitude Min",
     	    "mag_max": "Magnitude Max",
     	    "mag_pref": "Magnitude Pref",
@@ -125,7 +124,14 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
             "area_max": "Area Max",
             "area_pref": "Area Pref",
         };
-        
+
+	/* add a visual clue for compulsory fields */
+	Ext.iterate(propertyNames, function(field) {
+	    if (faultedearth.isCompulsory(field)) {
+		propertyNames[field] += " <small>(*)</small>";
+	    }
+	});
+
         var tabs = new Ext.TabPanel({
         	animCollapse: true,
         	activeTab : 0,
@@ -138,7 +144,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                     height: 180,
                 }],
             }, {
-                title: 'Neotectonic Section Summary Grid',
+                title: 'Neotectonic Fault Section Summary Grid',
                 items: [{
                     id: "summary_featuregrid",
                     layout: "fit",
@@ -390,10 +396,10 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 outputTarget: "trace"
             }, {
                 ptype: "gxp_featureeditor",
+		autoLoadFeatures: true,
                 id: "trace_featureeditor",
                 featureManager: "trace_featuremanager",
                 actionTarget: "traceform_tooltarget",
-                autoLoadFeatures: true,
                 createFeatureActionText: "Draw",
                 editFeatureActionText: "Modify",
 		        snappingAgent: "snapping-agent",
@@ -407,13 +413,9 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 featureEditor: "featureeditor",
                 outputTarget: "summary"
             }, {
-                ptype: "gxp_featureeditor",
-                id: "featureeditor",
-                featureManager: "summary_featuremanager",
-                modifyOnly: true,
-                actionTarget: "summaryform_tooltarget",
-                editFeatureActionText: "Modify",
-                snappingAgent: "snapping-agent",
+                ptype: "gem_observation_featureeditor",
+		actionTarget: "summaryform_tooltarget",
+		featureManager: "summary_featuremanager",
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -425,13 +427,13 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 outputTarget: "site"
             }, {
                 ptype: "gxp_featureeditor",
+		autoLoadFeatures: true,
                 id: "featureeditor",
                 featureManager: "site_featuremanager",
                 actionTarget: "siteform_tooltarget",
                 createFeatureActionText: "Draw",
                 editFeatureActionText: "Modify",
                 snappingAgent: "snapping-agent",
-                autoLoadFeatures: true,
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -442,14 +444,13 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 featureEditor: "featureeditor",
                 outputTarget: "fault"
             }, {
-                ptype: "gxp_featureeditor",
-                id: "featureeditor",
+                ptype: "gem_observation_featureeditor",
+                id: "fault_featureeditor",
                 featureManager: "fault_featuremanager",
                 actionTarget: "faultform_tooltarget",
                 createFeatureActionText: "Draw",
                 editFeatureActionText: "Modify",
                 snappingAgent: "snapping-agent",
-                autoLoadFeatures: true,
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -460,13 +461,11 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 featureEditor: "featureeditor",
                 outputTarget: "source",
             }, {
-                ptype: "gxp_featureeditor",
-                id: "featureeditor",
+                ptype: "gem_observation_featureeditor",
+                id: "faultsource_featureeditor",
                 featureManager: "source_featuremanager",
                 actionTarget: "sourceform_tooltarget",
                 readOnly: true,
-                snappingAgent: "snapping-agent",
-                autoLoadFeatures: true,
                 outputConfig: {
                     propertyNames: propertyNames
                 }
