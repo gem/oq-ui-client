@@ -257,7 +257,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                     modal: true,
                     bodyCfg: {
                         tag: "iframe",
-                        src: "faulted_earth_documentation.html",
+                        src: "fe_documentation.html",
                         style: {border: 0}
                     }
                 },
