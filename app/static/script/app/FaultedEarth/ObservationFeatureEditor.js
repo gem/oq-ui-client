@@ -50,6 +50,12 @@ faultedearth.ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
       autoLoadFeatures: true,
       snappingAgent: "snapping-agent",
 
+      /*
+	popup that shows an help to fill in data
+	*/
+
+      helpPopup: null,
+
       /* 
 	 override addOutput to increase the default width.  Thus, the
 	 fields are clearly visible and also the visual clue of the
@@ -58,7 +64,39 @@ faultedearth.ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
       addOutput: function(config) {
 	  var editor = this;
 	  config.width = 400;
-	  return faultedearth.ObservationFeatureEditor.superclass.addOutput.apply(this, arguments);
+	  popup = faultedearth.ObservationFeatureEditor.superclass.addOutput.apply(this, arguments);
+	  if (!popup.grid) {
+	      return popup;
+	  }
+
+	  popup.grid.addListener('rowclick', function(grid, rowIndex, event) {
+	      var grid = this;
+	      var store = this.propStore.store;
+	      var fieldName = store.getAt(rowIndex).id;
+	      
+	      if (editor.helpPopup) {
+		  editor.helpPopup.body.dom.innerHTML=gem.utils.description(fieldName);
+		  editor.helpPopup.enable();
+	      } else {
+		  editor.helpPopup = editor.addOutput({
+		      xtype: "gx_popup",
+		      title: "Help",
+		      bodyCls: 'help',
+		      padding: 10,
+		      location: popup.feature,
+		      anchored: false,
+		      map: popup.map,
+		      draggable: true,
+		      width: 200,
+		      html: gem.utils.description(fieldName),
+		      collapsible: true
+		  });
+	      }
+
+	      console.log(fieldName);
+	  });
+
+	  return popup;
       }
   });
 
