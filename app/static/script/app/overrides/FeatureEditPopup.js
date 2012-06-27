@@ -16,17 +16,6 @@
 
 Ext.namespace('gem.utils');
 
-/*
-  An additional store for fault sections, such that we can check if
-  the fault_section_id of the site observations are valid
- */
-gem.utils.fault_section_store = new GeoExt.data.WMSCapabilitiesStore({
-    url: "/geoserver/wms?SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.1.1&typeName=geonode:fault_section_view&maxFeatures=50",
-    id: "gem_utils_faultsection_store",
-    fields: ['id'],
-    autoLoad: true
-});
-
 /**
  * Overrides the startEditing method of FeatureEditPopup to provide
  * client side validation
@@ -77,8 +66,18 @@ Ext.override(gxp.FeatureEditPopup, {
 			      gem.utils.checkInteger(fieldName, value));
 		    
 		    value = parseInt(value);
-		    if (!gem.utils.fault_section_store.getById(value)) {
-			errors.push("Invalid fault section id");
+
+		    /* this store can be null if the fault section
+		     * grid has not been yet activated. Please fix me
+		     * once you know how to create a featuresttore
+		     * bypassing the featuremanager complexity */
+		    var store = app.tools.summary_featuremanager.featureStore;
+		    if (store) {
+			var search = store.findBy(function(item) { 
+			    return item.get('fid') == 'fault_section_view.' + value});
+			if (search == -1) {
+			    errors.push("Invalid fault section id");
+			}
 		    }
 		    break;
 		    
