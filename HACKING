@@ -20,6 +20,7 @@ HOWTO
   
   ### begin development cycle
   # edit something
+  ant deploy
   ### end development cycle
 
   commit & push

@@ -88,6 +88,8 @@
         <copy todir="${build}/${ant.project.name}/WEB-INF/app/static/externals/openlayers/theme">
             <fileset dir="app/static/externals/openlayers/theme"/>
         </copy>
+        <!-- fix google maps splash -->
+        <patch patchfile="patches/openlayers_google-maps_v3.js.patch" strip="1"/>
         <!-- copy GeoExt resources -->
         <copy todir="${build}/${ant.project.name}/WEB-INF/app/static/externals/geoext/resources">
             <fileset dir="app/static/externals/geoext/resources"/>
