@@ -404,7 +404,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 actionTarget: "traceform_tooltarget",
                 createFeatureActionText: "Draw",
                 editFeatureActionText: "Modify",
-		        snappingAgent: "snapping-agent",
+		snappingAgent: "snapping-agent",
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -418,6 +418,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 ptype: "gem_observation_featureeditor",
 		actionTarget: "summaryform_tooltarget",
 		featureManager: "summary_featuremanager",
+		modifyOnly: true,
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -425,14 +426,13 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 ptype: "app_siteform",
                 id: "siteform",
                 featureManager: "site_featuremanager",
-                featureEditor: "featureeditor",
+                featureEditor: "site_featureeditor",
                 outputTarget: "site"
             }, {
                 ptype: "gem_observation_featureeditor",
-                id: "featureeditor",
+                id: "site_featureeditor",
                 featureManager: "site_featuremanager",
                 actionTarget: "siteform_tooltarget",
-                createFeatureActionText: "Draw",
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -447,9 +447,6 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 id: "fault_featureeditor",
                 featureManager: "fault_featuremanager",
                 actionTarget: "faultform_tooltarget",
-                createFeatureActionText: "Draw",
-                editFeatureActionText: "Modify",
-                snappingAgent: "snapping-agent",
                 outputConfig: {
                     propertyNames: propertyNames
                 }

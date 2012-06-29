@@ -45,59 +45,75 @@ faultedearth.isCompulsory = function(fieldName) {
 faultedearth.ObservationFeatureEditor = Ext.extend(gxp.plugins.FeatureEditor,
   {
       ptype: "gem_observation_featureeditor",
-      modifyOnly: true,
       editFeatureActionText: "Modify",
       autoLoadFeatures: true,
       snappingAgent: "snapping-agent",
+      createFeatureActionText: "Draw",
 
       /*
 	popup that shows an help to fill in data
-	*/
-
+      */
       helpPopup: null,
 
       /* 
-	 override addOutput to increase the default width.  Thus, the
-	 fields are clearly visible and also the visual clue of the
-	 compulsory fields can appended to the end of the field name
+	 We extend addOutput for two reasons:
+
+	 1) to increase the default width.  Thus, the fields are
+	 clearly visible and also the visual clue of the compulsory
+	 fields can appended to the end of the field name
+
+	 2) to bind a context sensitive help (a popup with a
+	 description of the selected field)
        */
       addOutput: function(config) {
 	  var editor = this;
 	  config.width = 400;
-	  popup = faultedearth.ObservationFeatureEditor.superclass.addOutput.apply(this, arguments);
-	  if (!popup.grid) {
-	      return popup;
+	  var output = faultedearth.ObservationFeatureEditor.superclass.addOutput.apply(this, arguments);
+	  
+	  // super.addOutput could return a component that it is not a
+	  // popup with an editor.
+
+	  if (!output.grid) {
+	      return output;
 	  }
 
-	  popup.grid.addListener('rowclick', function(grid, rowIndex, event) {
-	      var grid = this;
-	      var store = this.propStore.store;
-	      var fieldName = store.getAt(rowIndex).id;
-	      
-	      if (editor.helpPopup) {
-		  editor.helpPopup.body.dom.innerHTML=gem.utils.description(fieldName);
-		  editor.helpPopup.enable();
-	      } else {
-		  editor.helpPopup = editor.addOutput({
-		      xtype: "gx_popup",
-		      title: "Help",
-		      bodyCls: 'help',
-		      padding: 10,
-		      location: popup.feature,
-		      anchored: false,
-		      map: popup.map,
-		      draggable: true,
-		      width: 200,
-		      html: gem.utils.description(fieldName),
-		      collapsible: true
-		  });
-	      }
+	  // we are adding a popup with an editor, so let's bind the
+	  // rowclick event to show our context sensitive help
+	  var popup = output;
 
-	      console.log(fieldName);
-	  });
+	  popup.grid.addListener('rowclick',
+				 function(grid, rowIndex, event) {
+				     faultedearth.on_row_click(editor, popup, rowIndex);
+				 });
 
 	  return popup;
       }
   });
 
 Ext.preg(faultedearth.ObservationFeatureEditor.prototype.ptype, faultedearth.ObservationFeatureEditor); 
+
+faultedearth.on_row_click = function(editor, popup, rowIndex) {
+    var grid = popup.grid;
+    var store = grid.propStore.store;
+    var fieldName = store.getAt(rowIndex).id;
+    
+    if (editor.helpPopup) {
+	editor.helpPopup.body.dom.innerHTML=gem.utils.description(fieldName);
+	editor.helpPopup.enable();
+    } else {
+	editor.helpPopup = editor.addOutput({
+	    xtype: "gx_popup",
+	    title: "Help",
+	    bodyCls: 'help',
+	    padding: 10,
+	    location: popup.feature,
+	    anchored: false,
+	    map: popup.map,
+	    draggable: true,
+	    width: 200,
+	    html: gem.utils.description(fieldName),
+	    collapsible: true
+	});
+    }
+}
+					   
