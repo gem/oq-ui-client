@@ -123,6 +123,8 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
             "area_min": "Area Min",
             "area_max": "Area Max",
             "area_pref": "Area Pref",
+	    /* for site observations */
+	    "fault_section_id": "Fault Section ID"
         };
 
 	/* add a visual clue for compulsory fields */
@@ -402,7 +404,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 actionTarget: "traceform_tooltarget",
                 createFeatureActionText: "Draw",
                 editFeatureActionText: "Modify",
-		        snappingAgent: "snapping-agent",
+		snappingAgent: "snapping-agent",
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -416,6 +418,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 ptype: "gem_observation_featureeditor",
 		actionTarget: "summaryform_tooltarget",
 		featureManager: "summary_featuremanager",
+		modifyOnly: true,
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -423,17 +426,13 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 ptype: "app_siteform",
                 id: "siteform",
                 featureManager: "site_featuremanager",
-                featureEditor: "featureeditor",
+                featureEditor: "site_featureeditor",
                 outputTarget: "site"
             }, {
-                ptype: "gxp_featureeditor",
-		autoLoadFeatures: true,
-                id: "featureeditor",
+                ptype: "gem_observation_featureeditor",
+                id: "site_featureeditor",
                 featureManager: "site_featuremanager",
                 actionTarget: "siteform_tooltarget",
-                createFeatureActionText: "Draw",
-                editFeatureActionText: "Modify",
-                snappingAgent: "snapping-agent",
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -448,9 +447,6 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 id: "fault_featureeditor",
                 featureManager: "fault_featuremanager",
                 actionTarget: "faultform_tooltarget",
-                createFeatureActionText: "Draw",
-                editFeatureActionText: "Modify",
-                snappingAgent: "snapping-agent",
                 outputConfig: {
                     propertyNames: propertyNames
                 }
