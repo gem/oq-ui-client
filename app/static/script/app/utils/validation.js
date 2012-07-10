@@ -14,7 +14,9 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/agpl.html>. */
 
-function fromFieldToDescription(field){
+Ext.namespace('gem.utils');
+
+gem.utils.fromFieldToDescription = function(field){
     /* e.g. upper_seismogenic_min =>   Upper Seismogenic Min */
     var ret = field.replace(/(\_[a-z])/g, 
 			    function($1){
@@ -24,11 +26,11 @@ function fromFieldToDescription(field){
     return ret;
 };
 
-function fieldSuffix(field) {
+gem.utils.fieldSuffix = function(field) {
     return field.split('_').reverse()[0];
 }
 
-function fieldPrefix(field) {
+gem.utils.fieldPrefix = function(field) {
     return field.split('_').slice(0, -1).join('_');
 }
 
@@ -36,9 +38,9 @@ function fieldPrefix(field) {
 /* makes some assumption about the field naming convention */
 checkInterval = function(grid, field, value) {
     var max_val, min_val, pref_val, op;
-    var suffix = fieldSuffix(field);
-    var prefix = fieldPrefix(field);
-    var description = fromFieldToDescription(prefix);
+    var suffix = gem.utils.fieldSuffix(field);
+    var prefix = gem.utils.fieldPrefix(field);
+    var description = gem.utils.fromFieldToDescription(prefix);
     if (!value) 
 	return;
     switch(suffix) {
@@ -73,7 +75,7 @@ checkInterval = function(grid, field, value) {
 
 function checkBetween(field, value, min, max) {
     value = parseFloat(value);
-    var description = fromFieldToDescription(field);
+    var description = gem.utils.fromFieldToDescription(field);
     if (!value)
 	return;
     if (value <= min || value >= max) {
@@ -83,7 +85,7 @@ function checkBetween(field, value, min, max) {
 
 function checkCompleteness(field, value) {
     value = parseFloat(value);
-    checkBetween(field, value, 1, 4);
+    checkBetween(field, value, 1, 4) || gem.utils.checkInteger(field, value);
 }
 
 function checkAngle(field, value) {
@@ -97,12 +99,21 @@ function checkQuadrant(field, value) {
 }
 
 function checkPositive(field, value) {
-    var description = fromFieldToDescription(field);
+    var description = gem.utils.fromFieldToDescription(field);
     value = parseFloat(value);
     if (!value)
 	return;
     if (value < 0) {
 	return description + " has to be strictly positive";
+    }
+}
+
+gem.utils.checkInteger = function(fieldName, value) {
+    var description = gem.utils.fromFieldToDescription(fieldName);
+    var intValue = parseInt(value);
+    var floatValue = parseFloat(value);
+    if (intValue != floatValue) {
+	return description + " is not an integer";
     }
 }
 
