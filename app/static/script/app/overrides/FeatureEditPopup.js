@@ -61,7 +61,7 @@ Ext.override(gxp.FeatureEditPopup, {
 			break;
 		    }
 		    pushError(errors,
-			      checkPositive(fieldName, value));
+			      gem.utils.checkPositive(fieldName, value));
 		    pushError(errors,
 			      gem.utils.checkInteger(fieldName, value));
 		    
@@ -80,7 +80,7 @@ Ext.override(gxp.FeatureEditPopup, {
 			}
 		    }
 		    break;
-		    
+
 		case 'rake_min':
 		case 'rake_max':
 		case 'rake_pref':
@@ -91,7 +91,7 @@ Ext.override(gxp.FeatureEditPopup, {
 		    break;
 		case 'marker_age':
 		    pushError(errors,
-			      checkPositive(fieldName, value));
+			      gem.utils.checkPositive(fieldName, value));
 		    break;
 		case 'low_d_min':
 		case 'low_d_max':
@@ -99,20 +99,26 @@ Ext.override(gxp.FeatureEditPopup, {
 		    pushError(errors,
 			      checkInterval(grid, fieldName, value));
 		    pushError(errors,
-			      checkPositive(fieldName, value));
+			      gem.utils.checkPositive(fieldName, value));
 		    var upper_seismogenic_min_value = grid.getCurrentValue('u_sm_d_min', parseFloat);
 		    value = parseFloat(value);
 		    if (upper_seismogenic_min_value && value < upper_seismogenic_min_value) {
 			errors.push("Lower Seismogenic minimum value has to be greater than the upper seismogenic minimum value");
 		    }
 		    break;
+
+		case 'episodic_behaviour':
+		    pushError(errors,
+			      gem.utils.checkValueIn(fieldName, value, ["Yes Active", "Yes Inactive", "No"]));
+		    break;
+
 		case 'u_sm_d_min':
 		case 'u_sm_d_max':
 		case 'u_sm_d_pre':
 		    pushError(errors,
 			      checkInterval(grid, fieldName, value));
 		    pushError(errors,
-			      checkPositive(fieldName, value));
+			      gem.utils.checkPositive(fieldName, value));
 		    var lower_seismogenic_min_value = grid.getCurrentValue('low_d_min', parseFloat);
 		    value = parseFloat(value);
 		    if (lower_seismogenic_min_value && value > lower_seismogenic_min_value) {
@@ -130,7 +136,7 @@ Ext.override(gxp.FeatureEditPopup, {
 		    break;
 		case 'length':
 		    pushError(errors,
-			      checkPositive(fieldName, value));
+			      gem.utils.checkPositive(fieldName, value));
 		    break;
 		case 'mag_min':
 		case 'mag_max':
@@ -210,7 +216,7 @@ Ext.override(gxp.FeatureEditPopup, {
 		    pushError(errors,
 			      checkInterval(grid, fieldName, value));
 		    pushError(errors,
-			      checkPositive(fieldName, value));
+			      gem.utils.checkPositive(fieldName, value));
 		    break;
 		case 'aseis_slip':
 		    pushError(errors,

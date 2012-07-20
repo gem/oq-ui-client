@@ -28,8 +28,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
             // custom fied names for the fault summary table
             "fault_name": "Fault Name",
             "sec_name": "Fault Section Name",
-            "episodi_is": "Episodic behaviour (yes/no)",
-            "episodi_ac": "Episodic behaviour (active/inactive)",
+            "episodic_behaviour": "Episodic behaviour",
             "length": "Length (km, pref, min, max)",
             "u_sm_d_min": "Upper seismogenic depth min (km)",
             "u_sm_d_max": "Upper seismogenic depth max (km)",
@@ -517,7 +516,6 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
             }, {
                 ptype: "gxp_featuregrid",
                 alwaysDisplayOnMap: true,
-                ignoreFields: ["episodi_is"],
                 selectOnMap: true,
                 displayMode: "selected",
                 featureManager: "source_featuremanager",

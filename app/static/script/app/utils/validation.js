@@ -98,13 +98,21 @@ function checkQuadrant(field, value) {
     checkBetween(field, value, 0, 90);
 }
 
-function checkPositive(field, value) {
+gem.utils.checkPositive = function(field, value) {
     var description = gem.utils.fromFieldToDescription(field);
     value = parseFloat(value);
     if (!value)
 	return;
     if (value < 0) {
 	return description + " has to be strictly positive";
+    }
+}
+
+gem.utils.checkValueIn = function(field, value, possibilities) {
+    var description = gem.utils.fromFieldToDescription(field);
+    var possibilities_string = possibilities.join(', ');
+    if (possibilities.indexOf(value) == -1) {
+	return description + " can be only one of the following values " + possibilities_string;
     }
 }
 

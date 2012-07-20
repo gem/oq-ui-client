@@ -32,14 +32,10 @@ The name of a fault section. For unnamed sections, the name should be given as t
 The Feature ID of a Fault Section.<br/>\
 To get a feature id of a fault section, edit a fault section and get the numerical ID from the title bar of the form used to edit the properties.",
 
-            "episodi_is": "Optional<br/>\
-Yes or No<br/>\
+            "episodic_behaviour": "Optional<br/>\
+Yes Active / Yes Inactive or No<br/>\
 Should be accompanied by comments or a description of the evidence (or lack of evidence) for episodic behaviour (free text up to 254 characters long)<br/>\
-Is there any evidence for episodic behaviour (i.e., periods of activity and inactivity) on the fault or fault section within the current tectonic regime? If this attribute is left blank it will be assumed the answer is no.",
-
-            "episodi_ac": "Optional<br/>\
-Active or Inactive<br/>\
-Should be accompanied by comments or a description of the basis for classifying the fault as active or inactive (free text up to 254 characters long)<br/>\
+Is there any evidence for episodic behaviour (i.e., periods of activity and inactivity) on the fault or fault section within the current tectonic regime? If this attribute is left blank it will be assumed the answer is no.<br/>\
 If there is evidence for episodic behaviour during the current tectonic regime, is the fault or fault section currently in an Active or Inactive period? If it is not in an active period, the fault is considered to not currently be contributing to seismic hazard and is included in the database for completeness only. If this attribute is left blank it will be assumed the answer is active.",
 
             "length": "Optional<br/>\
