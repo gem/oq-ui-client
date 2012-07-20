@@ -49,28 +49,33 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
             "down_thro": "Downthrown side (N, S, W, E or NW etc.)",
             "slip_typ": "Slip type (Reverse etc.)",
             "slip_com": "Slip type completeness (1, 2, 3, or 4)",
+
             "slip_r_min": "Slip rate min (mm/yr)",
             "slip_r_max": "Slip rate max (mm/yr)",
             "slip_r_pre": "Slip rate pref (mm/yr)",
             "slip_r_com": "Slip rate completeness (1, 2, 3, or 4)",
+
             "aseis_slip": "Aseismic-slip factor (0-1)",
             "aseis_com": "Aseismic-slip completeness (1, 2, 3, or 4)",
             "dis_min": "Displacement min (m)",
             "dis_max": "Displacement max (m)",
             "dis_pref": "Displacement pref (m)",
 	    "dis_total": "Total Displacement (m)",
+	    "dis_category": "Displacement category",
 	    "horizontal_displacement": "Horizontal Displacement",
 	    "vertical_displacement": "Horizontal Displacement",
             "re_int_min": "Recurrence interval min (yr)",
             "re_int_max": "Recurrence interval max (yr)",
             "re_int_pre": "Recurrence interval pref (yr)",
+            "re_int_pref": "Recurrence interval pref (yr)",
             "re_int_com": "Recurrence interval common (yr)",
 	    "re_int_category": "Recurrence interval category",
+	    "mov_category": "Age of last movement category",
             "mov_min": "Age of last movement min (yr BP)",
             "mov_max": "Age of last movement max (yr BP)",
             "mov_pref": "Age of last movement pref (yr BP)",
 	    "historical_earthquake": "Historical Eartquake",
-	    "pre-historical_earthquake": "Historical Eartquake",
+	    "pre_historical_earthquake": "Historical Eartquake",
             "all_com": "Overall data completeness (1, 2, 3, or 4)",
             "created": "Date created (date)",
             "compiler": "Compiled by (name)",
@@ -78,23 +83,47 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
             // custom fied names for the observations table
             "observationType": "Observation Type",
             "slipType": "Slip Type",
+            "slip_type": "Slip Type",
             "hv_ratio": "H:V Ratio",
             "rake": "Rake (deg)",
 	    "net_displacement": "Net Displacement",
+            "net_sliprate_min": "Net Slip Rate Min (mm/yr)",
+            "net_sliprate_max": "Net Slip Rate Max (mm/yr)",
+            "net_sliprate_pref": "Net Slip Rate Pref (mm/yr)",
+
             "net_slip_rate_min": "Net Slip Rate Min (mm/yr)",
             "net_slip_rate_max": "Net Slip Rate Max (mm/yr)",
             "net_slip_rate_pref": "Net Slip Rate Pref (mm/yr)",
+
+            "dip_sliprate_min": "Dip Slip Rate Min (mm/yr)",
+            "dip_sliprate_max": "Dip Slip Rate Max (mm/yr)",
+            "dip_sliprate_pref": "Dip Slip Rate Pref (mm/yr)",
+
             "dip_slip_rate_min": "Dip Slip Rate Min (mm/yr)",
             "dip_slip_rate_max": "Dip Slip Rate Max (mm/yr)",
             "dip_slip_rate_pref": "Dip Slip Rate Pref (mm/yr)",
+
             "marker_age": "Marker Age (yrs BP)",
+
+            "sliprate_category": "Slip Rate Category",
             "slip_rate_category": "Slip Rate Category",
+
+            "strike_sliprate_min": "Strike Slip Rate Min (mm/yr)",
+            "strike_sliprate_max": "Strike Slip Rate Max (mm/yr)",
+            "strike_sliprate_pref": "Strike Slip Rate Pref (mm/yr)",
+
             "strike_slip_rate_min": "Strike Slip Rate Min (mm/yr)",
             "strike_slip_rate_max": "Strike Slip Rate Max (mm/yr)",
             "strike_slip_rate_pref": "Strike Slip Rate Pref (mm/yr)",
+
+            "vertical_sliprate_min": "Vertical Slip Rate Min (mm/yr)",
+            "vertical_sliprate_max": "Vertical Slip Rate Max (mm/yr)",
+            "vertical_sliprate_pref": "Vertical Slip Rate Pref (mm/yr)",
+
             "vertical_slip_rate_min": "Vertical Slip Rate Min (mm/yr)",
             "vertical_slip_rate_max": "Vertical Slip Rate Max (mm/yr)",
             "vertical_slip_rate_pref": "Vertical Slip Rate Pref (mm/yr)",
+
             "site": "Site",
             "notes": "Notes",
             "summary_id": "Fault Section Summary ID",
@@ -147,24 +176,49 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
         	activeTab : 0,
         	border: true,
         	items: [{
-                title: 'Trace Grid',
+                    title: 'Trace Grid',
+                    items: [
+			{
+			    id: "trace_featuregrid",
+			    layout: "fit",
+			    height: 180,
+			}],
+		},  {
+                    title: 'Events (Observations) Grid',
                 items: [{
-                    id: "trace_featuregrid",
-                    layout: "fit",
-                    height: 180,
-                }],
-            }, {
-                title: 'Neotectonic Fault Section Summary Grid',
-                items: [{
-                    id: "summary_featuregrid",
+                    id: "site_events_featuregrid",
                     layout: "fit",
                     height: 180,
                     autoScroll: true,
                 }]
             }, {
-                title: 'Site Observations Grid',
+                title: 'Displacement (Observations) Grid',
                 items: [{
-                    id: "site_featuregrid",
+                    id: "site_displacement_featuregrid",
+                    layout: "fit",
+                    height: 180,
+                    autoScroll: true,
+                }]
+            }, {
+                title: 'Slip Rates (Observations) Grid',
+                items: [{
+                    id: "site_sliprates_featuregrid",
+                    layout: "fit",
+                    height: 180,
+                    autoScroll: true,
+                }]
+            }, {
+                title: 'Fault Geometry (Observations) Grid',
+                items: [{
+                    id: "site_faultgeometry_featuregrid",
+                    layout: "fit",
+                    height: 180,
+                    autoScroll: true,
+                }]
+            }, {
+                    title: 'Fault Section Summary Grid',
+                items: [{
+                    id: "summary_featuregrid",
                     layout: "fit",
                     height: 180,
                     autoScroll: true,
@@ -229,9 +283,21 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 		id: 'summary',
                 		title: "Neotectonic Section Summary",
                 		padding: 10
-                	}, {
-                        id: 'site',
-                        title: "Site Observation Form",
+                    }, {
+                        id: 'site_events',
+                        title: "Events (Site Observation) Form",
+                        padding: 10
+                    }, {
+                        id: 'site_displacement',
+                        title: "Displacement (Site Observation) Form",
+                        padding: 10
+                    }, {
+                        id: 'site_sliprates',
+                        title: "Slip Rates (Site Observation) Form",
+                        padding: 10
+                    }, {
+                        id: 'site_faultgeometry',
+                        title: "Fault Geometry (Site Observation) Form",
                         padding: 10
                     }, {
                 		id: "fault",
@@ -333,7 +399,28 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 }
             }, {
                 ptype: "gxp_featuremanager",
-                id: "site_featuremanager",
+                id: "site_events_featuremanager",
+                autoLoadFeatures: true,
+                autoSetLayer: false,
+                paging: false,
+                maxFeatures: 100
+            }, {
+		ptype: "gxp_featuremanager",
+                id: "site_displacement_featuremanager",
+                autoLoadFeatures: true,
+                autoSetLayer: false,
+                paging: false,
+                maxFeatures: 100
+	    }, {
+                ptype: "gxp_featuremanager",
+                id: "site_sliprates_featuremanager",
+                autoLoadFeatures: true,
+                autoSetLayer: false,
+                paging: false,
+                maxFeatures: 100
+            }, {
+                ptype: "gxp_featuremanager",
+                id: "site_faultgeometry_featuremanager",
                 autoLoadFeatures: true,
                 autoSetLayer: false,
                 paging: false,
@@ -343,10 +430,55 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 alwaysDisplayOnMap: true,
                 selectOnMap: true,
                 displayMode: "selected",
-                featureManager: "site_featuremanager",
-                outputTarget: "site_featuregrid",
+                featureManager: "site_events_featuremanager",
+                outputTarget: "site_events_featuregrid",
                 outputConfig: {
-                    id: "site_grid",
+                    id: "site_events_grid",
+                    loadMask: true,
+                    propertyNames: propertyNames
+                },
+                controlOptions: {
+                    multiple: true,
+                }
+            }, {
+                ptype: "gxp_featuregrid",
+                alwaysDisplayOnMap: true,
+                selectOnMap: true,
+                displayMode: "selected",
+                featureManager: "site_displacement_featuremanager",
+                outputTarget: "site_displacement_featuregrid",
+                outputConfig: {
+                    id: "site_displacement_grid",
+                    loadMask: true,
+                    propertyNames: propertyNames
+                },
+                controlOptions: {
+                    multiple: true,
+                }
+            }, {
+                ptype: "gxp_featuregrid",
+                alwaysDisplayOnMap: true,
+                selectOnMap: true,
+                displayMode: "selected",
+                featureManager: "site_sliprates_featuremanager",
+                outputTarget: "site_sliprates_featuregrid",
+                outputConfig: {
+                    id: "site_sliprates_grid",
+                    loadMask: true,
+                    propertyNames: propertyNames
+                },
+                controlOptions: {
+                    multiple: true,
+                }
+            }, {
+                ptype: "gxp_featuregrid",
+                alwaysDisplayOnMap: true,
+                selectOnMap: true,
+                displayMode: "selected",
+                featureManager: "site_faultgeometry_featuremanager",
+                outputTarget: "site_faultgeometry_featuregrid",
+                outputConfig: {
+                    id: "site_faultgeometry_grid",
                     loadMask: true,
                     propertyNames: propertyNames
                 },
@@ -432,15 +564,61 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 }
             }, {
                 ptype: "app_siteform",
-                id: "siteform",
-                featureManager: "site_featuremanager",
-                featureEditor: "site_featureeditor",
-                outputTarget: "site"
+		layerRecordName: 'event',
+                id: "site_events_form",
+                featureManager: "site_events_featuremanager",
+                featureEditor: "site_events_featureeditor",
+                outputTarget: "site_events"
+            }, {
+                ptype: "app_siteform",
+		layerRecordName: 'displacement',
+                id: "site_displacement_form",
+                featureManager: "site_displacement_featuremanager",
+                featureEditor: "site_displacement_featureeditor",
+                outputTarget: "site_displacement"
+            }, {
+                ptype: "app_siteform",
+		layerRecordName: 'sliprate',
+                id: "site_sliprates_form",
+                featureManager: "site_sliprates_featuremanager",
+                featureEditor: "site_sliprates_featureeditor",
+                outputTarget: "site_sliprates"
+            }, {
+                ptype: "app_siteform",
+		layerRecordName: 'faultgeometry',
+                id: "site_faultgeometry_form",
+                featureManager: "site_faultgeometry_featuremanager",
+                featureEditor: "site_faultgeometry_featureeditor",
+                outputTarget: "site_faultgeometry"
             }, {
                 ptype: "gem_observation_featureeditor",
-                id: "site_featureeditor",
-                featureManager: "site_featuremanager",
-                actionTarget: "siteform_tooltarget",
+                id: "site_events_featureeditor",
+                featureManager: "site_events_featuremanager",
+                actionTarget: "site_event_form_tooltarget",
+                outputConfig: {
+                    propertyNames: propertyNames
+                }
+            }, {
+                ptype: "gem_observation_featureeditor",
+                id: "site_displacement_featureeditor",
+                featureManager: "site_displacement_featuremanager",
+                actionTarget: "site_displacement_form_tooltarget",
+                outputConfig: {
+                    propertyNames: propertyNames
+                }
+            }, {
+                ptype: "gem_observation_featureeditor",
+                id: "site_sliprates_featureeditor",
+                featureManager: "site_sliprates_featuremanager",
+                actionTarget: "site_sliprate_form_tooltarget",
+                outputConfig: {
+                    propertyNames: propertyNames
+                }
+            }, {
+                ptype: "gem_observation_featureeditor",
+                id: "site_faultgeometry_featureeditor",
+                featureManager: "site_faultgeometry_featuremanager",
+                actionTarget: "site_faultgeometry_form_tooltarget",
                 outputConfig: {
                     propertyNames: propertyNames
                 }
@@ -517,7 +695,22 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                 tooltip: "Zoom to selected closure"
             }, {
                 ptype: "gxp_zoomtoselectedfeatures",
-                featureManager: "site_featuremanager",
+                featureManager: "site_events_featuremanager",
+                actionTarget: "siteform_tooltarget",
+                tooltip: "Zoom to selected closure"
+            }, {
+                ptype: "gxp_zoomtoselectedfeatures",
+                featureManager: "site_displacement_featuremanager",
+                actionTarget: "siteform_tooltarget",
+                tooltip: "Zoom to selected closure"
+            }, {
+                ptype: "gxp_zoomtoselectedfeatures",
+                featureManager: "site_faultgeometry_featuremanager",
+                actionTarget: "siteform_tooltarget",
+                tooltip: "Zoom to selected closure"
+            }, {
+                ptype: "gxp_zoomtoselectedfeatures",
+                featureManager: "site_sliprates_featuremanager",
                 actionTarget: "siteform_tooltarget",
                 tooltip: "Zoom to selected closure"
             }, {

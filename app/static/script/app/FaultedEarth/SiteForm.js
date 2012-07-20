@@ -36,6 +36,10 @@ FaultedEarth.SiteForm = Ext.extend(gxp.plugins.Tool, {
      */
     temporaryWorkspace: "temp",
 
+    /** api: config[layerRecordName]
+     *  ``String`` in [event, displacement, slip_rate, fault_geometry]
+     */
+
     /** api: config[temporaryWorkspaceNamespaceUri]
      *  ``String`` namespace uri of the temporary GeoServer workspace for
      *  shapefile uploads. Default is "http://geonode.org/temporary".
@@ -59,12 +63,12 @@ FaultedEarth.SiteForm = Ext.extend(gxp.plugins.Tool, {
                 if (!e.feature.fid) {
                     return;
                 }
-                if (featureManager.layerRecord.get("name") == "geonode:observations_siteobservation") {
+                if (featureManager.layerRecord.get("name") == "geonode:observations_" + this.layerRecordName) {
                     this.target.summaryId = e.feature.fid;
                 }
             },
             "featureunselected": function(e) {
-                if (this.active && featureManager.layerRecord.get("name") == "geonode:observations_siteobservation") {
+                if (this.active && featureManager.layerRecord.get("name") == "geonode:observations_" + this.layerRecordName) {
                     this.target.summaryId = null;
                 }
             },
@@ -73,6 +77,7 @@ FaultedEarth.SiteForm = Ext.extend(gxp.plugins.Tool, {
     },
     
     addOutput: function(config) {
+	var layerRecordName = this.layerRecordName;
         return FaultedEarth.SiteForm.superclass.addOutput.call(this, {
             xtype: "form",
             labelWidth: 110,
@@ -94,7 +99,7 @@ FaultedEarth.SiteForm = Ext.extend(gxp.plugins.Tool, {
                 cls: "composite-wrap",
                 fieldLabel: "Create or modify a site observation",
                 items: [{
-                    id: "siteform_tooltarget",
+                    id: "site_" + layerRecordName + "_form_tooltarget",
                     xtype: "container",
                     cls: "toolbar-spaced",
                     layout: "toolbar"
@@ -146,7 +151,7 @@ FaultedEarth.SiteForm = Ext.extend(gxp.plugins.Tool, {
             featureManager.setLayer();
             if (!this.layerRecord) {
                 this.target.createLayerRecord({
-                    name: "geonode:observations_siteobservation",
+                    name: "geonode:observations_" + this.layerRecordName,
                     source: "local"
                 }, function(record) {
                     this.layerRecord = record;

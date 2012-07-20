@@ -211,12 +211,6 @@ FaultedEarth.SummaryForm = Ext.extend(gxp.plugins.Tool, {
         }
     },
     
-    deactivate: function() {
-        if (FaultedEarth.SummaryForm.superclass.deactivate.apply(this, arguments)) {
-            this.target.tools[this.featureManager].featureStore.un("save", this.monitorSave, this);
-        }
-    },
-    
     updateFilter: function() {
         var form = this.output[0];
         var filters = [];
