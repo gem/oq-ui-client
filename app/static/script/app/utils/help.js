@@ -29,7 +29,7 @@ Should be accompanied by comments or a description of the source of the name (fr
 The name of a fault section. For unnamed sections, the name should be given as the fault name followed by a section number (e.g., Alpine Fault – Section 1).",
 
     "fault_section_id": "Fault section ID<br/>\
-The Feature ID of a Fault Section.<br/>
+The Feature ID of a Fault Section.<br/>\
 To get a feature id of a fault section, edit a fault section and get the numerical ID from the title bar of the form used to edit the properties.",
 
             "episodi_is": "Optional<br/>\
