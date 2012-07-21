@@ -174,16 +174,8 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
         	animCollapse: true,
         	activeTab : 0,
         	border: true,
-        	items: [{
-                    title: 'Trace Grid',
-                    items: [
-			{
-			    id: "trace_featuregrid",
-			    layout: "fit",
-			    height: 180,
-			}],
-		},  {
-                    title: 'Events (Observations) Grid',
+        	items: [ {
+                    title: 'Observations: Events',
                 items: [{
                     id: "site_events_featuregrid",
                     layout: "fit",
@@ -191,7 +183,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                     autoScroll: true,
                 }]
             }, {
-                title: 'Displacement (Observations) Grid',
+                title: 'Observations: Displacement',
                 items: [{
                     id: "site_displacement_featuregrid",
                     layout: "fit",
@@ -199,7 +191,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                     autoScroll: true,
                 }]
             }, {
-                title: 'Slip Rates (Observations) Grid',
+                title: 'Observations: Slip Rates',
                 items: [{
                     id: "site_sliprates_featuregrid",
                     layout: "fit",
@@ -207,7 +199,7 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                     autoScroll: true,
                 }]
             }, {
-                title: 'Fault Geometry (Observations) Grid',
+                title: 'Observations: Fault Geometry',
                 items: [{
                     id: "site_faultgeometry_featuregrid",
                     layout: "fit",
@@ -215,7 +207,15 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                     autoScroll: true,
                 }]
             }, {
-                    title: 'Fault Section Summary Grid',
+                    title: 'Traces',
+                    items: [
+			{
+			    id: "trace_featuregrid",
+			    layout: "fit",
+			    height: 180,
+			}],
+		}, {
+                    title: 'Fault Section Summary',
                 items: [{
                     id: "summary_featuregrid",
                     layout: "fit",
@@ -223,14 +223,14 @@ FaultedEarth = Ext.extend(gxp.Viewer, {
                     autoScroll: true,
                 }]
             }, {
-                title: 'Fault Grid',
+                title: 'Faults',
                 items: [{
                     id: "fault_featuregrid",
                     layout: "fit",
                     height: 180,
                 }]
             }, {
-                title: 'Fault Source Grid',
+                title: 'Fault Sources',
                 items: [{
                     id: "source_featuregrid",
                     layout: "fit",

@@ -130,7 +130,7 @@ FaultedEarth.SiteForm = Ext.extend(gxp.plugins.Tool, {
                     tag: "p",
                     cls: "x-form-item"
                 },
-                html: "To associate site observations to a Fault Section,<b> select Neotecnonic section summary tab</b>, get a neotecnonic section id, then edit the site observation and fill in the fault section id field with this value."
+                html: "To associate site observations to a Fault Section,<b> open a feature editor of a fault section</b>, get a fault section id from the titlebar, then edit the site observation and fill in the fault section id field with this value."
             }],
             listeners: {
                 "added": function(cmp, ct) {
